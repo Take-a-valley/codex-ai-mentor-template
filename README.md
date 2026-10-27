@@ -1,370 +1,135 @@
 # Codex AI Mentor Project Template
 
-Codexを「コード生成AI」ではなく、**自己学習を支援するAIメンター**として使うためのプロジェクトテンプレートです。
+AIに実装を丸投げせず、要件整理から設計・実装・テスト・保守までを自分で学びながら進めるためのプロジェクトテンプレートです。
+特定の言語やフレームワークに依存せず、AIを技術メンターや要件整理のPMとして活用するためのルール、作業手順、プロジェクト情報の置き場所を用意しています。
 
-開発未経験・ジュニアエンジニアが、AIに実装を丸投げせず、要件定義・設計・実装・レビュー・保守の流れを学ぶことを目的にしています。
-
----
-
-## 概要
-
-AIツールを使うと、コード生成や修正は非常に簡単になります。
-
-一方で、開発経験が浅い段階でAIに実装を任せすぎると、次のような状態になりやすいです。
-
-- 動くものはできたが、中身を説明できない
-- エラーが出たときに原因を追えない
-- 設計や実装方針の判断基準が身につかない
-- AIがどこを変更したのか把握できない
-- 再起動後にAIが過去の文脈を忘れてしまう
-
-このテンプレートでは、Codexにコード生成をさせるのではなく、以下のような支援を行うAIメンターとして振る舞わせることを目的としています。
-
-- 実装方針の整理
-- 要件定義・設計の壁打ち
-- 設計書・コードのレビュー
-- エラー原因の切り分け支援
-- 調査キーワードや学習順序の提示
-- 作業ログとコンテキストの整理
-- 次回作業の引き継ぎ
-
----
+AI環境がファイルを参照できない場合は、必要なファイルの内容をチャットで提示してください。指示ファイルが自動で読み込まれるかどうかは、利用する環境により異なります。
 
 ## このテンプレートでできること
 
-- 長大なプロンプトを `PROMPT.md` に保存し、Codexに読み込ませて運用できます
-- `AGENTS.md` にAIエージェント共通の最上位ルールを定義できます
-- `/docs/context/` に現在の状況、決定事項、未決事項、学習メモを保存できます
-- `/docs/logs/` に作業ログや議事録を保存できます
-- `/docs/architecture/` にユーザー作成の設計書を配置できます
-- AIに直接編集させる範囲を限定できます
-- `【クライアント】` モードで要件定義・ヒアリングの練習ができます
-- `終了報告` により学習ログと次回タスクを継続できます
+- 要件・設計・実装の相談やレビューを通じて、自分で判断しながら学習する
+- プロジェクトの概要、技術、スコープ、決定事項、未決事項を継続的に管理する
+- 作業ログとクライアントモードの議事録を分けて記録する
+- AIがファイルを編集できる範囲を明確にし、明示した依頼の範囲に限定する
+- 「クライアント」モードで要件を整理し、PMとのヒアリングを練習する
+- 作業の開始・再開や終了時に、次の作業へ引き継ぐ
 
----
+プロジェクトのソースコードやアプリケーション機能は含みません。これらの文書を、利用するプロジェクトに合わせて設定して使います。
 
-## 想定する利用者
+## 利用開始
 
-- AIを使いながら開発学習したい人
-- Codexにコードを丸投げせず、自分で理解して実装したい人
-- ジュニアエンジニア・未経験エンジニア
-- 要件定義や設計も少しずつ学びたい人
-- AIエージェント用の運用ルールを整備したい人
-- プロジェクトごとのAI用メモリ・ログ管理を整備したい人
+### 1. 自分の作業用リポジトリを用意する
 
----
-
-## 利用できるプロジェクト例
-
-このテンプレートは、特定の技術スタックやアプリケーションに依存しない汎用テンプレートです。
-
-たとえば、以下のような学習・個人開発プロジェクトに利用できます。
-
-- タスク管理アプリ
-- 家計簿アプリ
-- 予約管理システム
-- 在庫管理システム
-- ブログ・CMS
-- チャットアプリ
-- ポートフォリオサイト
-- APIサーバー
-- 業務管理システム
-
-プロジェクト固有の内容は、主に以下のファイルを編集して調整してください。
-
-- `PROMPT.md`
-- `docs/context/project_overview.md`
-- `docs/context/technology_stack.md`
-- `docs/context/scope.md`
-- `docs/context/current_tasks.md`
-
----
-
-## 技術スタックについて
-
-このテンプレートは、特定の技術スタックを前提にしていません。
-
-以下のように、あなたの学習目的に合わせて自由に書き換えてください。
-
-| 領域 | 記入例 |
-|---|---|
-| エディタ | VSCode / JetBrains IDE / Cursor など |
-| AIツール | Codex / ChatGPT / Claude Code など |
-| フロントエンド | React / Next.js / Vue / Nuxt / Svelte など |
-| バックエンド | Spring Boot / Node.js / Rails / Django / Go など |
-| DB | MySQL / PostgreSQL / SQLite / MongoDB など |
-| 認証 | メールログイン / OAuth / セッション / JWT など |
-| インフラ | Docker / AWS / GCP / Vercel / Render など |
-
-初期状態では、`docs/context/technology_stack.md` に記入欄があります。  
-利用開始前に、自分のプロジェクトに合わせて編集してください。
-
----
-
-## ディレクトリ構成
-
-```text
-.
-├─ PROMPT.md
-├─ AGENTS.md
-├─ CLAUDE.md
-├─ README.md
-├─ LICENSE
-├─ CONTRIBUTING.md
-├─ CODE_OF_CONDUCT.md
-├─ SECURITY.md
-├─ CHANGELOG.md
-├─ .gitignore
-├─ .github/
-│  ├─ ISSUE_TEMPLATE/
-│  │  ├─ bug_report.md
-│  │  └─ feature_request.md
-│  └─ pull_request_template.md
-└─ docs/
-   ├─ context/
-   │  ├─ current_tasks.md
-   │  ├─ project_overview.md
-   │  ├─ architecture_summary.md
-   │  ├─ technology_stack.md
-   │  ├─ scope.md
-   │  ├─ decisions.md
-   │  ├─ open_questions.md
-   │  ├─ glossary.md
-   │  └─ learning_notes.md
-   ├─ logs/
-   │  ├─ AI_mentor_log.md
-   │  └─ Agenda_log.md
-   └─ architecture/
-      ├─ README.md
-      └─ .gitkeep
-```
-
----
-
-## 重要ファイル
-
-### `PROMPT.md`
-
-Codexに読み込ませるメインプロンプトです。
-
-長大なプロンプトを毎回チャットに貼り付ける代わりに、Codexへ以下のように指示します。
-
-```text
-PROMPT.md を読み込んで、このプロジェクトのAIメンターとして動作してください。
-あわせて AGENTS.md、README.md、docs/context/、docs/logs/、docs/architecture/ を確認し、現在の状況を復元してください。
-```
-
-### `AGENTS.md`
-
-AIエージェント全体の最上位ルールです。
-
-Codex、Claude Code、ChatGPTなど、複数のAIエージェントで共有する基本方針を定義します。
-
-### `CLAUDE.md`
-
-Claude Code等を使う場合の補助ルールです。  
-Codex以外のAIエージェントを使わない場合は必須ではありません。
-
-### `docs/context/`
-
-現在の状況、決定事項、未決事項、学習メモなどを保存します。  
-AIが直接編集可能な領域です。
-
-### `docs/logs/`
-
-通常メンターモードの作業ログと、クライアントモードの議事録を保存します。  
-AIが直接編集可能な領域です。
-
-### `docs/architecture/`
-
-ユーザーが作成する設計書を保存します。  
-AIはこの配下を直接編集せず、レビュー・助言に徹します。
-
----
-
-## セットアップ
-
-### 1. このテンプレートを取得する
-
-GitHubからcloneします。
+GitHubでテンプレートからリポジトリを作成する機能が利用できる場合は、それを使います。利用できない場合はcloneし、自分用リポジトリを用意してください。
 
 ```bash
-git clone https://github.com/Take-a-valley/codex-ai-mentor-template
+git clone https://github.com/Take-a-valley/codex-ai-mentor-template.git
 cd codex-ai-mentor-template
 ```
 
-または、このリポジトリをテンプレートとしてコピーして使ってください。
+cloneしただけでは、自分用リポジトリへの送信先には切り替わりません。pushする場合は、送信先リポジトリとGitの設定を確認してから操作してください。
 
-### 2. プロジェクト情報を書き換える
+### 2. 利用環境と初期情報を確認する
 
-まず、以下のファイルを自分のプロジェクト用に編集してください。
+まず[AGENTS.md](AGENTS.md)でAIの役割、編集権限、例示の方針を確認し、[PROMPT.md](PROMPT.md)から利用する作業手順を確認します。次に、利用するプロジェクトに必要な範囲で以下を整理してください。
 
-```text
-docs/context/project_overview.md
-docs/context/technology_stack.md
-docs/context/scope.md
-docs/context/current_tasks.md
-```
+- [プロジェクト概要](docs/context/project_overview.md)
+- [技術スタック](docs/context/technology_stack.md)
+- [スコープ](docs/context/scope.md)
+- [現在の作業](docs/context/current_tasks.md)
+- [利用者設定](docs/context/mentor_preferences.md)
 
-必要に応じて、`PROMPT.md` の「作成するもの」「使用技術」「開発プロセス」なども調整してください。
+未定の項目は空欄や未定のままにし、決定事項として扱わないでください。
 
-### 3. エディタで開く
+### 3. AIに開始を依頼する
 
-VSCodeを使う場合は以下です。
+AIに、AGENTS.mdとPROMPT.mdを確認し、現在の作業に必要な手順と関連するプロジェクト情報を読んでから開始するよう依頼します。全ファイルや全履歴を毎回読む必要はありません。必要な情報を参照できない環境では、その旨を伝え、該当する本文を共有してください。
 
-```bash
-code .
-```
+テンプレートの初回起動では、利用者に確認するまで初期検証を実施したり、検証結果・変更履歴を記録したりしません。承認されない場合はそれらを未実施のままにし、通常の作業開始と区別します。詳細は[開始・再開の手順](docs/mentor/session.md)と[テンプレート動作確認](docs/mentor/validation.md)を参照してください。
 
-### 4. Codexに初期プロンプトを送る
+## 日常の使い方
 
-```text
-PROMPT.md を読み込んで、このプロジェクトのAIメンターとして動作してください。
-あわせて AGENTS.md、README.md、docs/context/、docs/logs/、docs/architecture/ を確認し、現在の状況を復元してください。
-```
+| 場面                 | 使い方                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------- |
+| 作業開始・再開       | 現在の作業と関連資料を確認し、次の作業や未確認事項を整理する                       |
+| 解説・レビュー・調査 | 対象と知りたい点を伝える。レビュー依頼だけではファイル編集を許可したことにならない |
+| 要件整理             | `【クライアント】`で開始する。終了時は`クライアント終了`と伝える                   |
+| 作業の終了           | `終了報告`で作業内容と次のタスクを整理する。Git操作は別途依頼する                  |
 
-Codexが以下を確認できれば開始準備完了です。
+各場面の詳しい手順は[PROMPT.md](PROMPT.md)から参照できます。
 
-- 現在の工程
-- プロジェクト概要
-- 使用技術
-- 未決事項
-- 次にやること
-- 編集許可範囲
-- 禁止事項
-
----
-
-## 基本的な使い方
-
-### 通常メンターモード
-
-通常時、CodexはAIメンターとして振る舞います。
-
-主な役割は以下です。
-
-- 実装方針の整理
-- 設計レビュー
-- コードレビュー
-- エラー原因の切り分け支援
-- 調査キーワードの提示
-- 学習順序の提案
-- 作業ログの整理
-
-### クライアントモード
-
-ユーザーが文頭に `【クライアント】` と入力した場合、CodexはPMとして振る舞います。
+## ファイル構成
 
 ```text
-【クライアント】
-このような機能を持つWebシステムを作りたいです。
+.
+├── AGENTS.md
+├── PROMPT.md
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+├── CHANGELOG.md
+├── LICENSE
+├── FILE_LIST.txt
+├── .gitattributes
+├── .gitignore
+└── docs/
+    ├── architecture/
+    │   ├── README.md
+    │   └── .gitkeep
+    ├── context/
+    │   ├── architecture_summary.md
+    │   ├── current_tasks.md
+    │   ├── decisions.md
+    │   ├── glossary.md
+    │   ├── learning_notes.md
+    │   ├── mentor_preferences.md
+    │   ├── open_questions.md
+    │   ├── project_overview.md
+    │   ├── scope.md
+    │   └── technology_stack.md
+    ├── logs/
+    │   ├── AI_mentor_log.md
+    │   └── Agenda_log.md
+    └── mentor/
+        ├── client.md
+        ├── learning.md
+        ├── requirements.md
+        ├── session.md
+        └── validation.md
 ```
 
-このモードでは、Codexは要件定義のためのヒアリング、未決事項整理、議事録作成を行います。
+## 主な文書
 
-クライアントモードを終了する場合は、以下を入力します。
+| ファイル・フォルダ                                         | 役割                                               |
+| ---------------------------------------------------------- | -------------------------------------------------- |
+| [AGENTS.md](AGENTS.md)                                     | AIの共通ルール、編集許可、例示と安全性の方針       |
+| [PROMPT.md](PROMPT.md)                                     | 読み込み順と作業別手順への入口                     |
+| [docs/mentor/session.md](docs/mentor/session.md)           | 開始・再開、引き継ぎ、ログ管理、終了報告           |
+| [docs/mentor/learning.md](docs/mentor/learning.md)         | 解説、レビュー、実装・調査支援                     |
+| [docs/mentor/requirements.md](docs/mentor/requirements.md) | 要件、技術、認証・権限、MVPの整理                  |
+| [docs/mentor/client.md](docs/mentor/client.md)             | クライアントモードでのヒアリングと議事録           |
+| [docs/mentor/validation.md](docs/mentor/validation.md)     | 初回承認後に行うテンプレートの検証手順             |
+| [docs/context/](docs/context/)                             | プロジェクトの最新状態、決定、未決事項、利用者設定 |
+| [docs/logs/](docs/logs/)                                   | 作業・学習ログとクライアントモードの議事録         |
+| [docs/architecture/README.md](docs/architecture/README.md) | ユーザー主体で作成する設計書・仕様書の案内         |
+| [CONTRIBUTING.md](CONTRIBUTING.md)                         | PR提出条件と変更提案時の確認事項                   |
+| [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)                   | 参加者の行動指針                                   |
+| [SECURITY.md](SECURITY.md)                                 | AI利用と機密情報に関する注意                       |
+| [CHANGELOG.md](CHANGELOG.md)                               | テンプレートの変更履歴                             |
+| [LICENSE](LICENSE)                                         | MIT Licenseの条件                                  |
 
-```text
-クライアント終了
-```
+## 編集権限と安全上の注意
 
-Codexはクライアントモード中のやり取りを `docs/logs/Agenda_log.md` に保存します。
+通常、AIが直接編集できるのは`docs/context/`と`docs/logs/`配下のMarkdownです。それ以外のファイルは、対象と変更範囲を明示して編集を依頼した場合に限り、その範囲内で扱います。レビュー・解説・相談や、例示を求める依頼だけではファイル編集を許可したことになりません。詳しいルールは[AGENTS.md](AGENTS.md)を正本として確認してください。
 
-### 終了報告
+業務情報、個人情報、認証情報、APIキーなどをAIへ入力する前に、所属組織と利用サービスのルールを確認してください。[SECURITY.md](SECURITY.md)も参照してください。
 
-作業終了時は以下を入力します。
+## PR提出について
 
-```text
-終了報告
-```
+PRを提出できるのは、事前にリポジトリへの参加を許可されたCollaboratorsのみです。詳細は[CONTRIBUTING.md](CONTRIBUTING.md)を確認してください。
 
-Codexは以下を整理し、`docs/logs/AI_mentor_log.md` に追記します。
+## ライセンスと関連情報
 
-- 今日の作業内容
-- 学習内容
-- 決定事項
-- 未決事項
-- 次回タスク
-
----
-
-## 編集許可範囲
-
-AIが直接編集してよいファイルは以下です。
-
-```text
-docs/context/*.md
-docs/logs/*.md
-```
-
-以下は原則として直接編集禁止です。
-
-```text
-docs/architecture/*.md
-ソースコード
-設定ファイル
-packageや依存関係ファイル
-Markdown以外のファイル
-```
-
----
-
-## 設計書の扱い
-
-設計書はユーザーの学習成果物として `/docs/architecture/` に作成します。
-
-AIは以下を行えます。
-
-- 設計書の目的説明
-- 構成案の提示
-- 記載粒度の説明
-- レビュー
-- 改善提案
-- 不足観点の指摘
-
-ただし、AIは `/docs/architecture/` 配下を直接編集しません。
-
----
-
-## カスタマイズ例
-
-### プロジェクト概要を変更する
-
-`docs/context/project_overview.md` を編集します。
-
-### 技術スタックを変更する
-
-`docs/context/technology_stack.md` を編集します。
-
-### AIに許可する編集範囲を変更する
-
-`AGENTS.md` と `PROMPT.md` の編集許可範囲を変更します。
-
-### 設計書の種類を変更する
-
-`docs/architecture/README.md` を編集します。
-
----
-
-## 注意事項
-
-このテンプレートは、AIに実装を丸投げするためのものではありません。
-
-AIを使いながらも、自分で考え、自分で実装できる力を身につけることを目的としています。
-
-また、業務コードや機密情報をAIツールに入力する場合は、所属組織やプロジェクトの利用ルールを必ず確認してください。
-
----
-## ライセンス
-
-このリポジトリは MIT License で公開しています。
-
----
-
-## 関連記事
-
-Qiita記事:
-
-[未経験エンジニアがCodexを「プログラミング学習メンター」として使う 第2回：PROMPT.mdで運用を安定させる](https://qiita.com/Take-a-valley/items/ed6c524d78d16c0a8bc5)
-
-
+このリポジトリはMIT Licenseです。利用条件は[LICENSE](LICENSE)を参照してください。
+テンプレートの目的と利用例については[関連記事](https://qiita.com/Take-a-valley/items/ed6c524d78d16c0a8bc5)も参照ください。
